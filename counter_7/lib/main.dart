@@ -1,4 +1,5 @@
-import 'package:counter_7/form.dart';
+import 'package:counter_7/widget/drawer.dart';
+import 'package:counter_7/page/form.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -48,48 +49,10 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-            title: Text(widget.title),
-        ),
-        // Menambahkan drawer menu
-        drawer: Drawer(
-            child: Column(
-                children: [
-                // Menambahkan clickable menu
-                ListTile(
-                    title: const Text('Counter'),
-                    onTap: () {
-                    // Route menu ke halaman utama
-                    Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(builder: (context) => const MyHomePage(title: 'Home')),
-                    );
-                    },
-                ),
-                ListTile(
-                    title: const Text('Tambah Budget'),
-                    onTap: () {
-                    // Route menu ke halaman form
-                    Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(builder: (context) => const MyFormPage()),
-                    );
-                  },
-                ),
-                ListTile(
-                    title: const Text('Data Budget'),
-                    onTap: () {
-                    // Route menu ke halaman form
-                    // Navigator.pushReplacement(
-                    //     context,
-                    //     MaterialPageRoute(builder: (context) => const MyFormPage()),
-                    // );
-                  },
-                ),
-              ],
-            ),
-          ),
-
+      appBar: AppBar(
+          title: Text(widget.title),
+      ),
+      drawer: returnDrawer(context),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
