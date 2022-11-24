@@ -1,3 +1,8 @@
+### Directory
+`├──` [Tugas 7](#tugas-7)<br>
+`├──` [Tugas 8](#tugas-8)<br>
+`└──` [Tugas 9](#tugas-9)
+
 # Tugas 7
 
 ## Jelaskan apa yang dimaksud dengan stateless widget dan stateful widget dan jelaskan perbedaan dari keduanya.
@@ -57,3 +62,28 @@ Navigator bekerja dengan memanfaatkan stack berisi routes ke halaman-halaman dal
 * Membuat file baru yaitu `data.dart` dan membuat class Data yang akan membuat objek Data berisi judul, nominal, dan tipe. Saat TextButton untuk menyimpan input di tap, maka akan terbuat objek Data baru dan objek tersebut akan ditambahkan ke dalam list.
 * Membuat class baru yaitu _DataListItem yang meng-extend Padding dan di dalamnya terdapat container yang berisi ListTile. Data berupa judul, nominal, dan tipe ditampilkan dalam ListTile
 * Pada bagian body halaman data, terdapat ListView yang menampilkan objek _DataListItem untuk setiap data dalam list.
+
+# Tugas 9
+## Apakah bisa kita melakukan pengambilan data JSON tanpa membuat model terlebih dahulu? Jika iya, apakah hal tersebut lebih baik daripada membuat model sebelum melakukan pengambilan data JSON?
+Sejatinya bisa-bisa saja, tetapi sangat jarang dilakukan. Tanpa membuat model terlebih dahulu, objek JSON tidak bisa kita akses sebagai objek dari suatu class yang telah kita define sendiri. Menurut saya, membuat model terlebih dahulu masih merupakan langkah terbaik.
+
+## Sebutkan widget apa saja yang kamu pakai di proyek kali ini dan jelaskan fungsinya.
+Selain widgets yang sudah disebutkan pada tugas 7 dan 8, widgets yang dipakai di proyek kali ini antara lain:
+1. FutureBuilder: widget yang melakukan build berdasarkan snapshot interaksi terakhir dengan Future.
+2. GestureDetector: widget yang mendeteksi gestur.
+3. ListView: scrolling widget yang menampilkan childrennya secara berurutan menurut scroll direction.
+4. Navigator: widget yang me-manage sejumlah child widgets dengan disiplin stack.
+
+## Jelaskan mekanisme pengambilan data dari JSON hingga dapat ditampilkan pada Flutter.
+1. Menambahkan dependency http dengan menambahkan http package menggunakan command `flutter pub add http`, kemudian memberikan akses internet ke dalam proyek yang sedang dibuat dengan menambahkan `<uses-permission android:name="android.permission.INTERNET" />` pada file `android/app/src/main/AndroidManifest.xml`
+2. Membuat model dari data JSON yang ingin digunakan. Saya memanfaatkan https://app.quicktype.io/ untuk menuliskan code model Watchlist berdasarkan JSON yang sudah dimiliki dari proyek Django sebelumnya.
+3. Dari halaman yang ingin menampilkan data, dipanggil fungsi (saya menggunakan fungsi terpisah bernama `fetchWatchlist()`) untuk membuat http request untuk GET dan mem-parse serta decode data JSON dan dibuat menjadi objek Watchlist.
+4. List of watchlists yang dikembalikan dapat ditampilkan dengan widgets yang tersedia (saya menggunakan ListView.builder serta Container).
+
+## Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas.
+1. Menambahkan ListTile baru pada drawer yang akan memanggil `pushReplacement()` ke halaman `MyWatchlistPage`.
+2. Membuat file `model/watchlist_item.dart`. Saya memanfaatkan https://app.quicktype.io/ untuk menuliskan code model Watchlist berdasarkan JSON yang sudah dimiliki dari proyek Django sebelumnya.
+3. Membuat file `page/mywatchlist.dart` yang berisi halaman untuk menampilkan semua judul pada watchlist. Menggunakan FutureBuilder, future nya memanggil method `fetchwatchlist()` yang akan mem-parse dan meng-decode seluruh data pada url JSON yang diberikan dan mengembalikan List berisi objek-objek Watchlist yang dibuat berdasarkan data pada JSON. Menggunakan ListView.builder, judul tiap watchlist akan ditampilkan menjadi suatu container sendiri.
+4. Menggunakan GestureDetector dan property onTap agar saat container suatu watchlist di tap, Navigator akan mem-push halaman `WatchlistDetail` yang akan menampilkan detail dari watchlist tersebut.
+5. Membuat file `page/mywatchlist_detail.dart` yang menerima argumen `watchlistItem`. Halaman ini berisi StatelessWidget yang akan menampilkan judul, release date, rating, review, dan status dari watchlistItem tersebut.
+6. Menambahkan FloatingActionButton berisi icon arrow back yang akan memanggil Navigator.pop untuk kembali ke halaman sebelumnya.
