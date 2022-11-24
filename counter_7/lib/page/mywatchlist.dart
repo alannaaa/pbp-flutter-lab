@@ -61,8 +61,8 @@ class _MyWatchlistPageState extends State<MyWatchlistPage> {
                       border: Border.all(
                         width: 1.5,
                         color: snapshot.data![index].fields.watched
-                          ? Colors.deepPurple.shade700
-                          : Colors.grey.shade600
+                          ? Colors.deepPurple.shade400
+                          : Colors.grey.shade300
                       ),
                       boxShadow: const [
                         BoxShadow(
